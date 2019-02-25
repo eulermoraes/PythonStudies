@@ -1,0 +1,56 @@
+
+repository = [{'name': 'O Homem Aranha', 'director': 'Steve S.', 'year': '2017'}, {'name': 'Apocalipse', 'director': 'Carmen', 'year': '2017'}, {'name': 'Vingadores', 'director': 'Marvel', 'year': '2018'}]
+
+
+def menu():
+    user_input = 0
+    while user_input != '3':
+        print("Welcome to Your Movies Repository App!")
+        print("      ***Menu***")
+        print("  (1) Add new movie")
+        print("  (2) Find a movie")
+        print("  (3) Show movies")
+        print("  (4) Exit")
+        user_input = input(": ")
+        if user_input == '1':
+            add_movie()
+        elif user_input == '2':
+            find_movie()
+        elif user_input == '3':
+            show_movies(repository)
+        elif user_input == '4':
+            print('Exiting.....')
+            continue
+        else:
+            print("Option doesn't match!")
+
+
+def add_movie():
+    print("Please, provide the information below")
+    name = input('Name: ')
+    director = input('Director: ')
+    year = input('Year: ')
+    repository.append({'name': name, 'director': director, 'year': year})
+    return 0
+
+def show_movies(rep_list):
+    for movie in rep_list:
+        print( f"Name: {movie['name']}, Director: {movie['director']}, Year: {movie['year']}")
+
+def find_movie():
+    print("Please, provide the information below")
+    attribute = input("Which atrribute?")
+    looking_for = input("What are you looking for?")
+
+    found = find_by_attribute(looking_for, lambda x: x[attribute])
+
+    show_movies(found)
+
+def find_by_attribute(expected, finder):
+    found = []
+
+    for movie in repository:
+        if finder(movie) == expected:
+            found.append(movie)
+
+    return found
